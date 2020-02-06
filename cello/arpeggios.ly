@@ -29,7 +29,7 @@ cAugArpeggio = {
   }
   \layout {}
 }
-\markup { C Diminished }
+\markup { C Diminished, minor 3rd plus dim. 5 }
 \score{
   \new Staff {   
     \relative c, {
@@ -38,7 +38,7 @@ cAugArpeggio = {
   }
   \layout {}
 }
-\markup { C Augmented }
+\markup { C Augmented, major 3rd plus aug. 5 }
 \score{
   \new Staff {   
     \relative c, {
