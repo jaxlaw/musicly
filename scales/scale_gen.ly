@@ -28,33 +28,39 @@
         (if (eq? 'NoteEvent (ly:music-property (car n) 'name))
             (+ 1 (count-notes (cdr n)))
             (count-notes (cdr n)))))
-  
+
   ; duplicate music to make n notes.
   (define (duplicate mus n)
-    (if (= (length mus) n)
+    (if (>= (length mus) n)
         mus
         (append mus (duplicate mus (- n (length mus))))))
   )
 
-GenerateScale =
+RepeatFlatten =
 #(define-music-function
-  (parser location notes arts bows)
+  (parser location n mus)
+  (number? ly:music?)
+  (let ((notes ((ly:music-property notes 'elements))))
+    (make-music 'SequentialMusic 'elements
+      (duplicate notes (* (count-notes notes) n)))))
+
+ApplyPatterns =
+#(define-music-function
+  (parser location notes rhythm bowing)
   (ly:music? ly:music? ly:music?)
   (make-music 'SequentialMusic 'elements
-    (mergeNotes
+    (merge-music
      (ly:music-property notes 'elements)
-     (duplicate (ly:music-property arts 'elements) 
+     (duplicate (ly:music-property rhythm 'elements)
        (count-notes (ly:music-property notes 'elements)))
-     (duplicate (ly:music-property bows 'elements) 
+     (duplicate (ly:music-property rhythm 'elements)
        (count-notes (ly:music-property notes 'elements))))))
 
-rhythm = { d8.[-. d16] }
-bowing = { d4( d) }
 \score {
-  \relative d, {
+  {
     \numericTimeSignature \time 4/4
-    \displayMusic \GenerateScale \dScale \rhythm \bowing
-    %\cScale
+    %\ApplyPatterns \dMajorThreeOctave { d8.[-. d16] } { d4( d) }
+    \displayMusic \RepeatFlatten 4 { d4( d) }
     %
   }
 }
