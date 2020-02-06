@@ -1,5 +1,17 @@
 \version "2.18.2"
 #(begin
+  ; slice list function.
+  (define (slice l offset len)
+    (if (null? l) l
+        (if (> offset 0)
+            (slice (cdr l) (- offset 1) len)
+            (if (> len 0)
+                (cons (car l) (slice (cdr l) 0 (- len 1)))
+                '()))))
+
+  (define (tail l offset)
+    (slice l offset (+ (- (length l) offset) 1)))
+
   ; Merge all the properties into one note.
   (define (merge-note p r b)
     (let ((note (ly:music-deep-copy p)))
@@ -12,13 +24,29 @@
       note)
     )
   ; Merge all notes from 3 lists.
-  (define (merge-music n a b)
-    (if (null? n) '()
-        (if (eq? 'NoteEvent (ly:music-property (car n) 'name))
-            (cons (merge-note (car n) (car a) (car b))
-              (merge-music (cdr n) (cdr a) (cdr b)))
-            (cons (car n) (merge-music (cdr n) a b)))
-        ))
+  (define (merge-music n r b)
+    (cond
+     ((null? n) '())
+     ((null? r) '())
+     ((null? b) '())
+     ((eq? 'TimeScaledMusic (ly:music-property (car r) 'name))
+      ; deal with tuplets
+      (let ((tm (ly:music-deep-copy (car r)))
+            (tnotes (ly:music-property (car r) 'element))
+            (i (ly:music-property (car r) 'denominator)))
+        (ly:music-set-property! tm 'element
+          (make-music 'SequentialMusic 'elements
+            (merge-music (slice n 0 i)
+              (ly:music-property tnotes 'elements) (slice b 0 i))))
+        (cons tm (merge-music (tail n i) (cdr r) (tail b i))))
+      )
+     ; normal case, merge note events.
+     ((eq? 'NoteEvent (ly:music-property (car n) 'name))
+      (cons (merge-note (car n) (car r) (car b))
+        (merge-music (cdr n) (cdr r) (cdr b))))
+     ; emit non NoteEvent and continue merging the rest.
+     (else (cons (car n) (merge-music (cdr n) r b)))
+     ))
 
   ; count NoteEvent notes.
   (define (count-notes n)
@@ -33,6 +61,13 @@
         mus
         (append mus (duplicate mus (- n (length mus))))))
   )
+
+RepeatFlatten =
+#(define-music-function
+  (parser location n mus)
+  (number? ly:music?)
+  (make-music 'SequentialMusic 'elements
+    (duplicate (ly:music-property mus 'elements) n)))
 
 ApplyPatterns =
 #(define-music-function
