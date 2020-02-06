@@ -1,4 +1,4 @@
-% Galamian scales for Cello
+% Scales for Cello
 \version "2.18.2"
 \language "english"
 % Use these and \displayLilyMusic to generate scales
@@ -31,7 +31,7 @@ cMajorThreeOctave = {
 dMajorThreeOctave = {
   \key d \major
   \clef "bass"
-  d, e, fsharp, d, 
+  d,-1 e,-2 fsharp,-4 d, 
   e, fsharp, g, a, 
   b, csharp d e 
   fsharp g a b 

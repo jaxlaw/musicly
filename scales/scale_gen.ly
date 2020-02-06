@@ -1,5 +1,3 @@
-% LilyBin
-\include "scales.ly"
 \version "2.18.2"
 #(begin
   ; Merge all the properties into one note.
@@ -38,19 +36,12 @@
 
 ApplyPatterns =
 #(define-music-function
-  (parser location notes rhythm bowing)
+  (parser location rhythm bowing notes)
   (ly:music? ly:music? ly:music?)
   (make-music 'SequentialMusic 'elements
     (merge-music
      (ly:music-property notes 'elements)
      (duplicate (ly:music-property rhythm 'elements)
        (count-notes (ly:music-property notes 'elements)))
-     (duplicate (ly:music-property rhythm 'elements)
+     (duplicate (ly:music-property bowing 'elements)
        (count-notes (ly:music-property notes 'elements))))))
-
-\score {
-  {
-    \numericTimeSignature \time 4/4
-    \ApplyPatterns \dMajorThreeOctave { d8.[-. d16] } { d4( d) }
-  }
-}
