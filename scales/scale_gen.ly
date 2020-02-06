@@ -36,14 +36,6 @@
         (append mus (duplicate mus (- n (length mus))))))
   )
 
-RepeatFlatten =
-#(define-music-function
-  (parser location n mus)
-  (number? ly:music?)
-  (let ((notes ((ly:music-property notes 'elements))))
-    (make-music 'SequentialMusic 'elements
-      (duplicate notes (* (count-notes notes) n)))))
-
 ApplyPatterns =
 #(define-music-function
   (parser location notes rhythm bowing)
@@ -59,8 +51,6 @@ ApplyPatterns =
 \score {
   {
     \numericTimeSignature \time 4/4
-    %\ApplyPatterns \dMajorThreeOctave { d8.[-. d16] } { d4( d) }
-    \displayMusic \RepeatFlatten 4 { d4( d) }
-    %
+    \ApplyPatterns \dMajorThreeOctave { d8.[-. d16] } { d4( d) }
   }
 }
