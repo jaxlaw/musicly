@@ -2,7 +2,7 @@
 \version "2.18.2"
 \language "english"
 \header {
-  title = "2 Octave Arpeggios"
+  title = "3 Octave Arpeggios"
   composer = "Adrianna Khoo"
 }
 aMinorArpeggio = {
