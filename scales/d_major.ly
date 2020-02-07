@@ -5,11 +5,12 @@
   title = "3 Octaves Scales"
   composer = "Jax Law"
 }
+scale = \dMajorThreeOctave
 \markup { "D Major" }
 \score {
   {
     \numericTimeSignature \time 4/4
-    \ApplyPatterns { d2 } { d } \dMajorThreeOctave
+    \ApplyPatterns { d2 } { d } \scale
     \bar "||"
   }
 }
@@ -17,28 +18,28 @@
 \score {
   {
     \numericTimeSignature \time 4/4
-    \ApplyPatterns { d4 } { d( d) d d } \dMajorThreeOctave
+    \ApplyPatterns { d4 } { d( d) d d } \scale
     \bar "||"
   }
 }
 \score {
   {
     \numericTimeSignature \time 4/4
-    \ApplyPatterns { d4 } { d d( d) d } \dMajorThreeOctave
+    \ApplyPatterns { d4 } { d d( d) d } \scale
     \bar "||"
   }
 }
 \score {
   {
     \numericTimeSignature \time 4/4
-    \ApplyPatterns { d4 } { d d d( d) } \dMajorThreeOctave
+    \ApplyPatterns { d4 } { d d d( d) } \scale
     \bar "||"
   }
 }
 \score {
   {
     \numericTimeSignature \time 4/4
-    \ApplyPatterns { d4 } { d d d d( d) d d d } \dMajorThreeOctave
+    \ApplyPatterns { d4 } { d) d d d( } \scale
     \bar "||"
   }
 }
@@ -46,7 +47,7 @@
 \score {
   {
     \numericTimeSignature \time 4/4
-    \ApplyPatterns { d8 } { d( d d d) } \dMajorThreeOctave
+    \ApplyPatterns { d8 } { d( d d d) } \scale
     \bar "||"
   }
 }
@@ -55,7 +56,7 @@
 \score {
   {
     \numericTimeSignature \time 4/4
-    \ApplyPatterns { d8 } { d( d d d d d d d) } \dMajorThreeOctave
+    \ApplyPatterns { d8 } { d( d d d d d d d) } \scale
     \bar "||"
   }
 }
@@ -63,7 +64,7 @@
 \score {
   {
     \numericTimeSignature \time 4/4
-    \ApplyPatterns { d16 } { d( d d d d d d d d d d d) } \dMajorThreeOctave
+    \ApplyPatterns { d16 } { d( d d d d d d d d d d d) } \scale
     \bar "||"
   }
 }
@@ -71,7 +72,7 @@
 \score {
   {
     \numericTimeSignature \time 4/4
-    \ApplyPatterns { d16 } { d( d d d d d d d d d d d d d d d) } \dMajorThreeOctave
+    \ApplyPatterns { d16 } { d( d d d d d d d d d d d d d d d) } \scale
     \bar "||"
   }
 }
@@ -79,7 +80,7 @@
 \score {
   {
     \numericTimeSignature \time 4/4
-    \ApplyPatterns { d8.[-. d16] } { d4( d) } \dMajorThreeOctave
+    \ApplyPatterns { d8.[-. d16] } { d4( d) } \scale
     \bar "||"
   }
 }

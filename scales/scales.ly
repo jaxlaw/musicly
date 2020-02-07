@@ -23,24 +23,24 @@ cMajorThreeOctave = {
   \clef "tenor"  
   f' g' a' b'
   c'' b' a' g' f' e' d' c' 
-  \clef "bass"  
-  b a g f e d c b, 
+   
+  b a \clef "bass" g f e d c b, 
   a, g, f, e, d, c, d, c,
 }
 
 dMajorThreeOctave = {
   \key d \major
   \clef "bass"
-  d,-1 e,-2 fsharp,-4 d, 
-  e, fsharp, g, a, 
+  d,-1 fsharp,-4^"x" e,-2 d,-1 
+  e,-2 fsharp,-4^"x" g, a, 
   b, csharp d e 
-  fsharp g a b 
-  \clef "tenor" 
-  csharp' d' e' fsharp' 
-  g' a' b' csharp''
-  d'' csharp'' b' a' 
-  g' fsharp' e' d' 
-  \clef "bass" 
+  fsharp g a b  
+  csharp' d' e' fsharp'
+  \clef "treble"
+  g' a' b' csharp'' 
+  d'' csharp'' b' a'
+  \clef "bass"
+  g' fsharp' e' d'   
   csharp' b a g 
   fsharp e d csharp 
   b, a, g, fsharp, 

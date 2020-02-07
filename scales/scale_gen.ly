@@ -1,16 +1,20 @@
 \version "2.18.2"
 #(begin
-  ; slice list function.
-  (define (slice l offset len)
-    (if (null? l) l
-        (if (> offset 0)
-            (slice (cdr l) (- offset 1) len)
-            (if (> len 0)
-                (cons (car l) (slice (cdr l) 0 (- len 1)))
-                '()))))
-
-  (define (tail l offset)
-    (slice l offset (+ (- (length l) offset) 1)))
+  ; return first n NoteEvents and ignore the non NoteEvents.
+  (define (first-n l num)
+    (cond ((null? l) l)
+      ((= num 0) '())
+      ((eq? 'NoteEvent (ly:music-property (car l) 'name))
+       (cons (car l) (first-n (cdr l) (- num 1))))
+       (else
+        (first-n (cdr l) num))))
+  ; take first n NoteEvents and return the rest including the non NoteEvents.
+  (define (take-n l num)
+    (cond ((null? l) l)
+      ((= num 0) l)
+      ((eq? 'NoteEvent (ly:music-property (car l) 'name))
+       (take-n (cdr l) (- num 1)))
+      (else (cons (car l) (take-n (cdr l) num)))))
 
   ; Merge all the properties into one note.
   (define (merge-note p r b)
@@ -29,6 +33,9 @@
      ((null? n) '())
      ((null? r) '())
      ((null? b) '())
+     ; emit non NoteEvent and continue merging the rest.
+     ((not (eq? 'NoteEvent (ly:music-property (car n) 'name)))
+      (cons (car n) (merge-music (cdr n) r b)))
      ((eq? 'TimeScaledMusic (ly:music-property (car r) 'name))
       ; deal with tuplets
       (let ((tm (ly:music-deep-copy (car r)))
@@ -36,16 +43,15 @@
             (i (ly:music-property (car r) 'denominator)))
         (ly:music-set-property! tm 'element
           (make-music 'SequentialMusic 'elements
-            (merge-music (slice n 0 i)
-              (ly:music-property tnotes 'elements) (slice b 0 i))))
-        (cons tm (merge-music (tail n i) (cdr r) (tail b i))))
+            (merge-music (first-n n i)
+              (ly:music-property tnotes 'elements) (first-n b i))))
+        (cons tm (merge-music (take-n n i) (cdr r) (take-n b i))))
       )
      ; normal case, merge note events.
      ((eq? 'NoteEvent (ly:music-property (car n) 'name))
       (cons (merge-note (car n) (car r) (car b))
         (merge-music (cdr n) (cdr r) (cdr b))))
-     ; emit non NoteEvent and continue merging the rest.
-     (else (cons (car n) (merge-music (cdr n) r b)))
+     (else '())
      ))
 
   ; count NoteEvent notes.
