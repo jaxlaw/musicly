@@ -76,6 +76,14 @@ scale = \dMajorThreeOctave
     \bar "||"
   }
 }
+\markup { "triplets" }
+\score {
+  {
+    \numericTimeSignature \time 2/4
+    \displayMusic \ApplyPatterns { \tuplet 3/2 { d8 d d } } { d( d d) } \scale
+    \bar "||"
+  }
+}
 \markup { "other rhythm patterns" }
 \score {
   {

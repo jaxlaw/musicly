@@ -39,8 +39,8 @@ dMajorThreeOctave = {
   \clef "treble"
   g' a' b' csharp'' 
   d'' csharp'' b' a'
-  \clef "bass"
   g' fsharp' e' d'   
+  \clef "bass"
   csharp' b a g 
   fsharp e d csharp 
   b, a, g, fsharp, 
