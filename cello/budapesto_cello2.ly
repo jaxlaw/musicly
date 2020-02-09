@@ -11,8 +11,7 @@
 		\key d \minor
 		\numericTimeSignature \time 4/4
 		\relative d, {
-			d8-.[ r d-.] r d-.[ r d-.] r |
-			d-.[ r d-.] r d-.[ r d-.] r |
+			\repeat unfold 4 {d8-.[ r d-.] r} |
 			d'[ r a] r d[ r a] r |
 			g[ r d'] r d[ r a] r |
 			a[ r e] r d[ r d] r | \break
@@ -20,11 +19,11 @@
 			d8[ r a'] r d[ r a] r |
 			g[ r d'] r d[ r a] r |
 			e'[ r a] r e[ r a] r |
-			a,[ g] f[ e] d r d' r_"Fine" \bar "|." |
-			<d a'>1 <d a'> <d a'> <d a'> | %m11-15
+			a,[ g] f[ e] d r d' r_"Fine" \bar "|." | \break
+			<d a'>1 <d a'> <d a'> <d a'> | \break %m11-15
 			<d a'> <d a'> <d a'> |  %m15-17
-			a8[ g] f[ e] d r d' r |
-			d[ r a] r d[ r a] r |
+			a8[ g] f[ e] d r d r | \break
+			d'[ r a] r d[ r a] r |
 			a[ r e] r a[ r e] r |
 			d[ r a'] r d,[ r a'] r |
 			a[ r e] r a[ r e] r |
