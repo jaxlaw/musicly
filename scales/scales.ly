@@ -46,3 +46,4 @@ dMajorThreeOctave = {
   b, a, g, fsharp, 
   e, d, e, d,
 }
+\displayLilyMusic \transpose c a {\clef "bass" \relative c,  \twoOctave}
